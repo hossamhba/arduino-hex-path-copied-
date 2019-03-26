@@ -1,0 +1,94 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Windows;
+using System.Windows.Forms;
+
+
+
+
+namespace ConsoleApplication6
+
+{
+
+    class Program
+
+    {
+
+        [STAThreadAttribute]
+
+        static void Main(string[] args)
+
+        {
+
+            string i = ""; 
+
+            Console.WriteLine("*********************************************");
+
+            Console.WriteLine("***   ARDUINO HEX FILE MOUNTER TO PROTEUS  ***");
+
+            Console.WriteLine("******   Created By Houssam benkrane DZ  *******");
+
+            Console.WriteLine("*********************************************\n");
+
+            A:
+
+            Console.WriteLine("   Directory Scanning... \n");
+
+            string[] files = Directory.GetFiles(@"C:\Users\bkhou\AppData\Local\Temp","*.hex",SearchOption.AllDirectories);
+
+            // if file not found
+
+            if (files.Length ==0  )
+
+            {
+
+                Console.WriteLine("* NO HEX file in %TEMP% dir.\n* Please press \"Verify\" from Arduino IDE. \n=======================================\nIf you want to research again press enter \"S\" key\nIf you want to exit press any key\n");
+
+                
+
+                i = Console.ReadKey().ToString();
+
+                if (i.Contains('S') || i.Contains('s')) { goto A; }
+
+                
+
+            } else{
+
+                Console.WriteLine("List of files...\n=======================================\n");
+
+            foreach(string file in files){
+
+                if (!file.Contains("with_bootloader")) { 
+
+                    Console.WriteLine(file); 
+
+                    Clipboard.SetText(file); }
+
+                    }
+
+            Console.WriteLine("Path of hex file is copied to Clipboard");
+
+
+
+            Console.WriteLine("\n=======================================\nIf you want to research again press enter \"S\" key\nIf you want to exit press any key\n");
+
+
+
+            i = Console.ReadKey().ToString();
+
+            if (i.Contains('S') || i.Contains('s')){ goto A; }
+
+            
+
+            }
+
+        }
+
+    }
+
+}
+
